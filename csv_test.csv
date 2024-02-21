@@ -1,0 +1,51 @@
+thresh,exp,slope,mean,std,hskew,wskew,model_name,,,Notes
+"(0.1, 0.4)","(0.0, 1.5)","(-2, 2)","(0.3, 0.7)","(0.6, 1)","(0.2, 0.6)","(0.1, 0.3)","(6, 9, 4, 7)","<bound method MLP.get_current_datetime_string of MLP(
+  (fc1): Linear(in_features=196608, out_features=100, bias=True)
+  (fc2): Linear(in_features=100, out_features=10, bias=True)
+  (add_noise): AddNoise()
+)>",,Meh
+"(0.2, 0.45)","(0.0, 1.5)","(-2, 2)","(0.3, 0.8)","(0.6, 1)","(0.2, 0.6)","(0.1, 0.3)","(6, 8, 4, 6)","<bound method MLP.get_current_datetime_string of MLP(
+  (fc1): Linear(in_features=196608, out_features=100, bias=True)
+  (fc2): Linear(in_features=100, out_features=10, bias=True)
+  (add_noise): AddNoise()
+)>",,Meh
+"(0.2, 0.45)","(0.0, 1.5)","(-2, 2)","(0.3, 0.8)","(0.6, 1)","(0.6, 0.8)","(0.2, 0.6)","(0.1, 0.3)","(6, 8, 4, 6)","<bound method MLP.get_current_datetime_string of MLP(
+  (fc1): Linear(in_features=196608, out_features=100, bias=True)
+  (fc2): Linear(in_features=100, out_features=10, bias=True)
+  (add_noise): AddNoise()
+)>",Meh
+"(0.2, 0.6)","(-0.5, 1.5)","(-2, 2)","(0.3, 0.8)","(0.4, 1.0)","(0.3, 0.65)","(0.2, 0.6)","(0.1, 0.3)","(6, 8, 4, 6)","<bound method MLP.get_current_datetime_string of MLP(
+  (fc1): Linear(in_features=196608, out_features=100, bias=True)
+  (fc2): Linear(in_features=100, out_features=10, bias=True)
+  (add_noise): AddNoise()
+)>",Good
+"(0.2, 0.6)","(0.0, 1.5)","(-2, 2)","(0.3, 0.8)","(0.6, 1.0)","(0.3, 0.6)","(0.2, 0.6)","(0.1, 0.3)","(6, 8, 4, 6)","<bound method MLP.get_current_datetime_string of MLP(
+  (fc1): Linear(in_features=196608, out_features=100, bias=True)
+  (fc2): Linear(in_features=100, out_features=10, bias=True)
+  (add_noise): AddNoise()
+)>"
+"(0.2, 0.6)","(0.0, 1.5)","(-2, 2)","(0.3, 0.8)","(0.6, 1.0)","(0.3, 0.6)","(0.2, 0.6)","(0.1, 0.3)","(6, 8, 4, 6)","<bound method MLP.get_current_datetime_string of MLP(
+  (fc1): Linear(in_features=196608, out_features=100, bias=True)
+  (fc2): Linear(in_features=100, out_features=10, bias=True)
+  (add_noise): AddNoise()
+)>"
+"(0.2, 0.6)","(0.0, 1.5)","(-2, 2)","(0.3, 0.8)","(0.6, 1.0)","(0.3, 0.6)","(0.3, 0.6)","(0.1, 0.2)","(3, 6, 3, 5)","<bound method MLP.get_current_datetime_string of MLP(
+  (fc1): Linear(in_features=196608, out_features=100, bias=True)
+  (fc2): Linear(in_features=100, out_features=10, bias=True)
+  (add_noise): AddNoise()
+)>"
+"(0.2, 0.6)","(0.0, 1.5)","(-2, 2)","(0.3, 0.8)","(0.6, 1.0)","(0.3, 0.6)","(0.3, 0.6)","(0.1, 0.2)","(3, 6, 3, 5)","<bound method MLP.get_current_datetime_string of MLP(
+  (fc1): Linear(in_features=196608, out_features=100, bias=True)
+  (fc2): Linear(in_features=100, out_features=10, bias=True)
+  (add_noise): AddNoise()
+)>"
+"(0.2, 0.6)","(0.0, 1.5)","(-2, 2)","(0.3, 0.8)","(0.6, 1.0)","(0.3, 0.6)","(0.3, 0.6)","(0.1, 0.2)","(3, 6, 3, 5)","<bound method MLP.get_current_datetime_string of MLP(
+  (fc1): Linear(in_features=196608, out_features=100, bias=True)
+  (fc2): Linear(in_features=100, out_features=10, bias=True)
+  (add_noise): AddNoise()
+)>"
+"(0.2, 0.6)","(0.0, 1.5)","(-2, 2)","(0.3, 0.8)","(0.6, 1.0)","(0.3, 0.6)","(0.3, 0.6)","(0.1, 0.2)","(3, 6, 3, 5)","<bound method MLP.get_current_datetime_string of MLP(
+  (fc1): Linear(in_features=196608, out_features=100, bias=True)
+  (fc2): Linear(in_features=100, out_features=10, bias=True)
+  (add_noise): AddNoise()
+)>"
