@@ -8,7 +8,8 @@ class AddNoise(Module):
     def __init__(self, threshold: float, exponent: float, slope: float, intercept: float, 
                  noise_type: str = 'gaussian', mean: float = 0.0, std: float = 1.0,
                  grid_size: tuple = (1, 1), circle_size_factor: float = 1.0,
-                 heightSkew: float = 1.0, widthSkew: float = 1.0, inversionBool: bool = True):
+                 heightSkew: float = 1.0, widthSkew: float = 1.0, inversionBool: bool = True,
+                 device: Union[str, torch.device] = 'cpu'):
         """
         Initialize the AddNoise module.
 
@@ -22,6 +23,7 @@ class AddNoise(Module):
         - std (float): Standard deviation of the Gaussian noise.
         """
         super().__init__()
+        self.device = device
         self.threshold = threshold
         self.exponent = exponent
         self.slope = slope
@@ -45,13 +47,13 @@ class AddNoise(Module):
         """
         yH = self.grid_size[0]
         xW = self.grid_size[-1]
-        circle_masks = torch.zeros(1, 1, *self.image_size)
+        circle_masks = torch.zeros(1, 1, *self.image_size, device=self.device)
         for i in range(yH):
             for j in range(xW):
                 cy = (i + 0.5) * (self.image_size[0]/yH)
                 cx = (j + 0.5) * (self.image_size[1]/xW)
 
-                y_indices, x_indices = torch.meshgrid(torch.arange(self.image_size[0]), torch.arange(self.image_size[1]))
+                y_indices, x_indices = torch.meshgrid(torch.arange(self.image_size[0], device=self.device), torch.arange(self.image_size[1], device=self.device))
                 y_distances = (y_indices - cy) / (self.image_size[0] / (2* yH) * self.circle_size_factor)*(1-self.hSkew)
                 x_distances = (x_indices - cx) / (self.image_size[1] / (2* xW) * self.circle_size_factor)*(1-self.wSkew)
                 distances = torch.sqrt(y_distances ** 2 + x_distances ** 2)
@@ -73,6 +75,7 @@ class AddNoise(Module):
         - Tensor: Noisy image.
         """
         # Calculate noise based on the threshold
+        x = x.to(self.device)
         self.image_size = x.shape[-2:]
         above_threshold = (x > self.threshold).float()
         noise = (self.slope * x.pow(self.exponent) + self.intercept).pow(self.exponent) * above_threshold
