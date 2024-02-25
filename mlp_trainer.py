@@ -37,7 +37,7 @@ class MLP(nn.Module):
         params = yaml_data.get("params")
         return params
     
-    def get_current_datetime_string(self):
+    def get_current_datetime_string(self, ):
         now = datetime.now()
         datetime_string = now.strftime("%Y-%m-%d_%H-%M")
         return datetime_string
@@ -65,11 +65,13 @@ class MLP(nn.Module):
         self.add_noise.invert = vars["invert"]
     
 
-def train_model(model, train_loader, num_epochs=4, learning_rate=0.00025, device=torch.device('cpu')):
+def train_model(model, train_loader, _parallel_proc, rank, num_epochs=4, learning_rate=0.00025, device=torch.device('cpu')):
     criterion = nn.MSELoss()
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
     
     for epoch in range(num_epochs):
+        if _parallel_proc:
+            train_loader.sampler.set_epoch(epoch)
         model.train()
         running_loss = 0.0
         
@@ -80,8 +82,12 @@ def train_model(model, train_loader, num_epochs=4, learning_rate=0.00025, device
             predictions = model(img)
             img = img.squeeze(1)
             # Adjust parameters based on predictions
-            model.adjust_params(predictions, device)
-            noisy_images = model.add_noise(img)
+            if _parallel_proc:
+                model.module.adjust_params(predictions, device)
+                noisy_images = model.module.add_noise(img)
+            else:
+                model.adjust_params(predictions, device)
+                noisy_images = model.add_noise(img)
 
             # Calculate loss between clean images and noisy images
             loss = criterion(noisy_images, img)
@@ -94,7 +100,12 @@ def train_model(model, train_loader, num_epochs=4, learning_rate=0.00025, device
         print(f"Epoch [{epoch+1}/{num_epochs}], Loss: {epoch_loss:.4f}")
 
     # torch.save(model.state_dict(), "denoiser_model.pth")
-    model.update_csv()
-    filename = model.get_current_datetime_string()
-    torch.save(model.state_dict(), f"para_models/{filename}.pth")
+    if _parallel_proc:
+        model.module.update_csv()
+        filename = model.module.get_current_datetime_string()
+    else:
+        model.update_csv()
+        filename = model.get_current_datetime_string()
+    if rank == 0:
+        torch.save(model.state_dict(), f"para_models/{filename}.pth")
     # save_model_as_safetensor(model, "paramModel(0.4-0.6Thresh).safetensors")
